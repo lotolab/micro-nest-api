@@ -1,0 +1,15 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "never",
+        "source.fixAll.eslint": "explicit"
+    },
+    "fileheader.customMade": {
+        "Author": "lanbery",
+        "Date": "Do not edit", // 设置后默认设置文件生成时间
+        "LastEditTime": "Do not edit", // 设置后，保存文件更改默认更新最后编辑时间
+        "LastEditors": "lanbery", // 设置后，保存文件更改默认更新最后编辑人
+        "Description": "${TM_DIRECTORY/.*\\\\(.+)$/$1/}",
+        "FilePath": "Do not edit", // 设置后，默认生成文件相对于项目的路径
+        "custom_string_obkoro1": "Coypright ©2022-${CURRENT_YEAR} by lotolab."
+    }
+}

@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+const { hexToDecimalString } = require('../dist/src/core/utils/strings/hex.util')
+// @see https://xrpl.org/docs/concepts/accounts/cryptographic-keys/#signing-algorithms
+const { customAlphabet } = require('nanoid');
+const {bold,cyanBright,greenBright,red,magentaBright} = require('colorette')
+const { Command } = require('commander');
+const program = new Command();
+
+program.name('keygen')
+    .version('0.1.0',greenBright('-v,--version'))
+    .helpOption('-h,--help',cyanBright('Generate ramdom key tool document.'))
+    .option('-m, --mode <mode>',cyanBright('generate alphabet mode : hex,base58 or default.'),'default')
+    .option('-l, --length <len>',cyanBright('generate random key length.'),12);
+
+program.parse();
+
+
+
+const DEFAULT_SEED = '$-.abcdefghjkmnpqrstuvwxyz123456789ABDCEFGHJKLMNPQRSTUVW_'
+const DEFAULT_HEX_SEED = '0123456789abcdefABCDEF'
+const BASE58_SEED = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+
+async function generateKey(){
+    // console.log(`options: `,program.opts())
+    const {mode,length} = program.opts()
+    if(!['default','base58','hex'].includes(mode)){
+        throw new Error(magentaBright('Arguments -m required:')+` hex,base58 or default.`)
+    }
+    let alphabet = DEFAULT_SEED;
+    switch(mode){
+        case 'hex':
+            alphabet = DEFAULT_HEX_SEED;
+            break;
+        case 'base58':
+            alphabet = BASE58_SEED;
+            break;
+
+        default:
+            alphabet = DEFAULT_SEED;
+            break;
+    }
+
+    const nanoid = await customAlphabet(alphabet,parseInt(length));
+
+    const id =await nanoid();
+    
+    mode === 'hex' ? console.log('\n',bold(cyanBright('Key : ')),greenBright(id),hexToDecimalString(`0x${id}`)) : console.log('\n',bold(cyanBright('Key : ')),greenBright(id));
+}
+
+generateKey().catch((e)=>{
+    console.error(red('Error: '),e.message)
+})

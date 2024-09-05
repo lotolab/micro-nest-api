@@ -1,0 +1,25 @@
+#version: '3'
+
+services:
+  server:
+    image: ${IMAGE_NAME}
+    container_name: ${CONTAINER_NAME}
+    ports:
+      - ${EXPOSE_PORT}:${PORT}
+    restart: on-failure
+
+    volumes:
+      - ${MNT_VOL}:/home/app/.conf
+      - ${DATA_VOL}:/data
+    # links:
+    #   - 'mysql:mysqldb'
+    #   - 'cache:cache'
+    networks:
+      - private
+      - xy-network
+
+networks:
+  private:
+  xy-network:
+    external: true
+    name: xy-network
