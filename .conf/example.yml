@@ -1,0 +1,59 @@
+STAGE: production
+
+app:
+  name: micro-nest-api
+  prefix: 'v1'
+  wiki: https://blog.lanbery.cc
+
+upload:
+  data: upload/data
+  sql: upload/sql
+
+# auth NJT_3xhC2b2HKvBM development with xun-info.com
+jwt:
+  version: 2
+  iss: lotolab
+  sub: wgts-sso
+  secretKey: NJT_3xhC2b2HKvBM
+  expirein: 24h
+  encryptRounds: 10
+
+server:
+  mode: test
+  port: 9008
+
+# DB
+mysql:
+  host: mysql
+  port: 3306
+  database: wgai-db
+  username: admin
+  password: xxx
+  logging: false
+
+# cache-redis
+cache:
+  redis:
+    host: cache
+    port: 6379
+    db: 1
+    ttl: 5
+    passport: xxx
+
+axios:
+  httpTimeout: 100000
+  maxRedirects: 5
+
+bce:
+  wxai:
+    name: wx-main
+    appId: 38991877
+    apiKey: FkUy3bQYcqGhyIBVCGqzugks
+    apiSecret: iBOrlZ6A5Mpy2V2lYqo1CD65Ux5KPCWb
+
+# fanwen API
+fw:
+  baseURL: https://oapi.hzfanews.com
+  grantType: client_credentials
+  clientId: 5ed6c2bc48ab4583
+  clientSecret: 987b871be6f2b0ac5ed6c2bc48ab4583
